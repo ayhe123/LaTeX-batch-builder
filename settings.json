@@ -1,0 +1,97 @@
+{
+    "language": "en",
+    "num_of_processes": 5,
+    "compile_commands": {
+        "xelatex": [
+            "xelatex -interaction=batchmode $FILE"
+        ],
+        "xelatex*2": [
+            "xelatex -interaction=batchmode $FILE",
+            "xelatex -interaction=batchmode $FILE"
+        ],
+        "pdflatex": [
+            "pdflatex -interaction=batchmode $FILE"
+        ],
+        "pdflatex*2": [
+            "pdflatex -interaction=batchmode $FILE",
+            "pdflatex -interaction=batchmode $FILE"
+        ],
+        "biber": [
+            "biber -q $FILE"
+        ],
+        "bibtex": [
+            "bibtex -terse $FILE"
+        ],
+        "makeindex": [
+            "makeindex $FILE"
+        ]
+    },
+    "compile_cases": [
+        {
+            "match": "\\\\printbibliography",
+            "exec": [
+                "xelatex",
+                "biber",
+                "xelatex*2"
+            ]
+        },
+        {
+            "match": "\\\\bibliography",
+            "exec": [
+                "xelatex",
+                "bibtex",
+                "xelatex*2"
+            ]
+        },
+        {
+            "match": "\\\\printindex",
+            "exec": [
+                "xelatex",
+                "makeindex",
+                "xelatex*2"
+            ]
+        }
+    ],
+    "default_command": [
+        "xelatex*2"
+    ],
+    "remove_format": [
+        "__latexindent_temp\\.tex",
+        ".*\\.aux",
+        ".*\\.bbl",
+        ".*\\.blg",
+        ".*\\.log",
+        ".*\\.out",
+        ".*\\.toc",
+        ".*\\.bcf",
+        ".*\\.xml",
+        ".*\\.synctex",
+        ".*\\.nlo",
+        ".*\\.nls",
+        ".*\\.bak",
+        ".*\\.ind",
+        ".*\\.idx",
+        ".*\\.ilg",
+        ".*\\.lof",
+        ".*\\.lot",
+        ".*\\.ent-x",
+        ".*\\.tmp",
+        ".*\\.ltx",
+        ".*\\.los",
+        ".*\\.lol",
+        ".*\\.loc",
+        ".*\\.listing",
+        ".*\\.gz",
+        ".*\\.userbak",
+        ".*\\.nav",
+        ".*\\.snm",
+        ".*\\.vrb",
+        ".*\\.synctex\\(busy\\)",
+        ".*\\.nav",
+        ".*\\.snm",
+        ".*\\.vrb",
+        ".*\\.fls",
+        ".*\\.xdv",
+        ".*\\.fdb_latexmk"
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "en": {
+        "pwd": ".tex files in current directory(commands in brackets will be executed when compiling this file):",
+        "empty_dir": "No .tex files in current directory",
+        "choices": "Pleace choose:\n0: Compile all files\n1: Remove temporary files\n2: Compile and remove temporary files\n3: Change directory\n4: Exit",
+        "prompt": "Input a number between 0 and 4 > ",
+        "chdir_1": "Current directory:",
+        "chdir_2": "Enter directory > ",
+        "chdir_3": "No such directory!",
+        "cleaning": "Cleaning current directory..."
+    },
+    "cns": {
+        "pwd": "当前目录下的 .tex 文件有(方括号里的命令将在编译这个文件时执行):",
+        "empty_dir": "当前目录下没有 .tex 文件",
+        "choices": "请选择:\n0: 编译所有文件\n1: 清理临时文件\n2: 编译且清理临时文件\n3: 切换目录\n4: 退出",
+        "prompt": "输入 0-4 间的数字 > ",
+        "chdir_1": "当前目录:",
+        "chdir_2": "输入要前往的目录 > ",
+        "chdir_3": "没有这个目录!",
+        "cleaning": "清理当前目录下的临时文件..."
+    }
+}
