@@ -2,7 +2,7 @@
     "en": {
         "pwd": ".tex files in current directory(commands in brackets will be executed when compiling this file):",
         "empty_dir": "No .tex files in current directory",
-        "choices": "Pleace choose:\n0: Compile all files\n1: Remove temporary files\n2: Compile and remove temporary files\n3: Change directory\n4: Exit",
+        "choices": "Please choose:\n0: Compile all files\n1: Remove temporary files\n2: Compile and remove temporary files\n3: Change directory\n4: Exit",
         "prompt": "Input a number between 0 and 4 > ",
         "chdir_1": "Current directory:",
         "chdir_2": "Enter directory > ",

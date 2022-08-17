@@ -1,5 +1,8 @@
 __pycache__
+build
+dist
 .DS_Store
+*.spec
 *.tex
 *.sty
 *.bib
