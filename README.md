@@ -101,7 +101,7 @@ If nothing in `"compile_cases"` is matched, then commands in `"default_command"`
 
 ### Customize Files to Delete
 
-Modify values of `"remove_format"` in `settings.json`, add regular expression which match the files you want to remove to its values, then the file will be remove when "Remove temporary files" is executed.
+Modify values of `"remove_format"` in `settings.json`, add regular expression which match the files you want to remove to its values, then the file will be removed when "Remove temporary files" is executed.
 
 ## License
 

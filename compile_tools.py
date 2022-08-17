@@ -45,8 +45,7 @@ def find_files(cases: list, default_cmd: list):
     files = os.listdir()
     result = []
     for file_fullname in files:
-        file_name = '.'.join(file_fullname.split('.')[0:-1])
-        file_type = file_fullname.split('.')[-1]
+        file_name, _, file_type = file_fullname.rpartition('.')
         if file_type == 'tex':
             commands = default_cmd
             with open(file_fullname, encoding='utf-8') as fp:
@@ -71,9 +70,11 @@ def compile_cmd(commands: list, variables: dict, command_table: list):
             os.system(cmd_val)
 
 
-def remove_file(file_patterns: list):
-    """Delete files"""
+def remove_file_list(file_patterns: list):
+    """Return list of files to remove"""
+    result = []
     for pattern in file_patterns:
         for file in os.listdir():
             if re.findall(pattern, file):
-                os.remove(file)
+                result.append(file)
+    return list(set(result))

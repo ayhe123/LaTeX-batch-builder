@@ -20,7 +20,8 @@ limitations under the License.
 import sys
 import os
 from multiprocessing import Pool, freeze_support
-from compile_tools import find_files, remove_file, compile_cmd
+from itertools import zip_longest
+from compile_tools import find_files, remove_file_list, compile_cmd
 from read_settings import read_settings
 
 
@@ -55,8 +56,24 @@ def main_ui(process_pool, settings, lang_file):
                          for x, y in files]
             process_pool.starmap(compile_process, new_files)
         if reply in ('1', '2'):
-            print(lang_file['cleaning'])
-            remove_file(settings['remove_format'])
+            remove_files = remove_file_list(settings['remove_format'])
+            if remove_files:
+                print(lang_file['cleaning_1'])
+                print('-'*50)
+                for files_line in zip_longest(remove_files[::3],
+                                              remove_files[1::3],
+                                              remove_files[2::3],
+                                              fillvalue=''):
+                    print('\t'.join([s.ljust(15) for s in files_line]))
+                print('-'*50)
+                reply_clean = '0'
+                while reply_clean not in ('y', 'n'):
+                    reply_clean = input(lang_file['cleaning_2'])
+                if reply_clean == 'y':
+                    for files in remove_files:
+                        os.remove(files)
+            else:
+                print(lang_file['cleaning_3'])
         if reply == '3':
             print(lang_file['chdir_1'], current_dir)
             reply_dir = input(lang_file['chdir_2'])
@@ -67,7 +84,7 @@ def main_ui(process_pool, settings, lang_file):
 
 
 if __name__ == '__main__':
-    freeze_support() # for Windows executable
+    freeze_support()  # for Windows executable
     result = read_settings()
     if not result:
         sys.exit()

@@ -64,7 +64,9 @@ def read_settings():
                                                      'chdir_1',
                                                      'chdir_2',
                                                      'chdir_3',
-                                                     'cleaning',
+                                                     'cleaning_1',
+                                                     'cleaning_2',
+                                                     'cleaning_3',
                                                      'pwd']):
         return False
     return settings, ui_strings

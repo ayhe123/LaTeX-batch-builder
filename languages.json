@@ -7,7 +7,9 @@
         "chdir_1": "Current directory:",
         "chdir_2": "Enter directory > ",
         "chdir_3": "No such directory!",
-        "cleaning": "Cleaning current directory..."
+        "cleaning_1": "These files are about to remove:",
+        "cleaning_2": "Continue?[y/n] > ",
+        "cleaning_3": "No files to be removed"
     },
     "cns": {
         "pwd": "当前目录下的 .tex 文件有(方括号里的命令将在编译这个文件时执行):",
@@ -17,6 +19,8 @@
         "chdir_1": "当前目录:",
         "chdir_2": "输入要前往的目录 > ",
         "chdir_3": "没有这个目录!",
-        "cleaning": "清理当前目录下的临时文件..."
+        "cleaning_1": "这些文件将被删除:",
+        "cleaning_2": "是否继续?[y/n] > ",
+        "cleaning_3": "没有要删除的文件"
     }
 }
