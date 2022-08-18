@@ -1,5 +1,11 @@
 # LaTeX-batch-builder
 
+****
+
+IMPORTANT: I need someone to help me with packaging and testing on Windows. See [this issue](https://github.com/ayhe123/LaTeX-batch-builder/issues/1) for details.
+
+****
+
 [中文文档](README_cns.md)
 
 A tool which compiles several LaTeX files simultaneously and deletes temporary files.
@@ -10,7 +16,7 @@ This program compiles all LaTeX files in the working directory by executing diff
 
 ### Requirement
 
-Mainstream LaTeX distributions (TeX Live, MacTeX, etc.) is required. Make sure that `xelatex` is available at terminal:
+One of the mainstream LaTeX distributions (TeX Live, MacTeX, etc.) is required. Make sure that `xelatex` is available at terminal:
 
 ```bash
 xelatex --version
@@ -22,7 +28,7 @@ Packed executables (packed using `pyinstaller`) can be downloaded [here](https:/
 
 If you are using MacOS, you should enter the directory of the program in the terminal and run it instead of double-click the program, otherwise an exception with message `settings.json not found!` will be raised.
 
-Don't remove `settngs.json` and `languages.json` in the program's directory.
+Don't remove `settngs.json` in the program's directory.
 
 ### Run Source Code
 

@@ -23,6 +23,7 @@ from multiprocessing import Pool, freeze_support
 from itertools import zip_longest
 from compile_tools import find_files, remove_file_list, compile_cmd
 from read_settings import read_settings
+from cli_languages import languages, list_of_languages
 
 
 def compile_process(file_name, commands, dir_name, cmd_table):
@@ -85,8 +86,9 @@ def main_ui(process_pool, settings, lang_file):
 
 if __name__ == '__main__':
     freeze_support()  # for Windows executable
-    result = read_settings()
-    if not result:
+    settings = read_settings()
+    if not settings:
         sys.exit()
-    with Pool(result[0]['num_of_processes']) as pool:
-        main_ui(pool, *result)
+    lang_type = list_of_languages.index(settings['language'])
+    with Pool(settings['num_of_processes']) as pool:
+        main_ui(pool, settings, languages[lang_type])

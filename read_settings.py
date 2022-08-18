@@ -44,7 +44,7 @@ def check_file(filename, content, check_list):
 
 
 def read_settings():
-    """Read settings.json and languages.json, check files, get settings"""
+    """Read settings.json, check files, get settings"""
     settings = read_json('settings.json')
     if not settings:
         return False
@@ -55,18 +55,4 @@ def read_settings():
                                                   'default_command',
                                                   'remove_format']):
         return False
-    ui_strings = read_json('languages.json')[settings['language']]
-    if not ui_strings:
-        return False
-    if not check_file('languages.json', ui_strings, ['empty_dir',
-                                                     'choices',
-                                                     'prompt',
-                                                     'chdir_1',
-                                                     'chdir_2',
-                                                     'chdir_3',
-                                                     'cleaning_1',
-                                                     'cleaning_2',
-                                                     'cleaning_3',
-                                                     'pwd']):
-        return False
-    return settings, ui_strings
+    return settings

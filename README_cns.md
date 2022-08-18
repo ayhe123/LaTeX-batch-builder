@@ -1,5 +1,11 @@
 # LaTeX-batch-builder
 
+****
+
+**我需要有人来帮我在 Windows 上打包和测试这个程序。更多细节见 [这个 issue](https://github.com/ayhe123/LaTeX-batch-builder/issues/1)**
+
+****
+
 [English documentation](README.md)
 
 自动编译多个 LaTeX 文件、删除编译产生的临时文件的工具
@@ -22,7 +28,7 @@ xelatex --version
 
 MacOS 用户需要在终端进入程序所在的目录之后运行程序，而不是双击程序，否则程序会输出错误：`settings.json not found!`
 
-程序所在的目录的 `settngs.json` 和 `languages.json` 这两个文件不要删除
+程序所在的目录的 `settngs.json` 文件不要删除
 
 ### 运行源程序
 
