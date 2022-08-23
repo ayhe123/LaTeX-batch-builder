@@ -115,7 +115,7 @@ Modify values of `"remove_format"` in `settings.json`, add regular expression wh
 
 Many tasks can be done by this program once configured correctly.
 
-For example, configured `settings.json` as follows enables you to convert markdown, txt and html filse to docx, pdf or html using [Pandoc](https://pandoc.org/).
+For example, configuring `settings.json` as follows enables you to convert markdown, txt and html files to docx, pdf or html using [Pandoc](https://pandoc.org/).
 
 ```json
 "compile_format": [
