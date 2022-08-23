@@ -63,7 +63,9 @@ Modify values of `"compile_commands"`, `"compile_cases"` and `"default_command"`
 ```json
 "compile_commands": {
         "name of command1": [
-            "xelatex -interaction=batchmode $FILE"  // $FILE will be replaced by .tex file name
+            "xelatex -interaction=batchmode $FILE"
+            // $FILE will be replaced by the file name without extension
+            // $FILE_FULL will be replaced by the full file name
         ],
         "name of command2": [
             "xelatex -interaction=batchmode $FILE",
@@ -103,9 +105,62 @@ If such string exists, then the program cease to matching and commands in the co
 
 If nothing in `"compile_cases"` is matched, then commands in `"default_command"` will be executed.
 
-### Customize Files to Delete
+### Customize Files to Compile or to Delete
+
+Modify values of `"compile_format"` in `settings.json`, add type (without `.`) of the file to compile, then that type of file will be found by the program.
 
 Modify values of `"remove_format"` in `settings.json`, add regular expression which match the files you want to remove to its values, then the file will be removed when "Remove temporary files" is executed.
+
+## Example
+
+Many tasks can be done by this program once configured correctly.
+
+For example, configured `settings.json` as follows enables you to convert markdown, txt and html filse to docx, pdf or html using [Pandoc](https://pandoc.org/).
+
+```json
+"compile_format": [
+    "md",
+    "txt",
+    "html"
+],
+"compile_commands": {
+    "docx": [
+        "pandoc -f markdown -o '$FILE'.docx '$FILE_FULL'"
+    ],
+    "pdf": [
+        "pandoc -f markdown -o '$FILE'.pdf '$FILE_FULL'"
+    ],
+    "html": [
+        "pandoc -f markdown -o '$FILE'.html '$FILE_FULL'"
+    ]
+},
+"compile_cases": [
+    {
+        "match": "#### to .docx ####",
+        "exec": [
+            "docx"
+        ]
+    },
+    {
+        "match": "#### to .pdf ####",
+        "exec": [
+            "pdf"
+        ]
+    },
+    {
+        "match": "#### to .html ####",
+        "exec": [
+            "html"
+        ]
+    }
+],
+"default_command": [
+    "html"
+],
+"remove_format": []
+```
+
+To convert files to a specific type, you need to add a comment `#### to .(extension of the type) ####` in your file.
 
 ## License
 

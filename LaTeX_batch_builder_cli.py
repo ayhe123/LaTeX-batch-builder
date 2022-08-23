@@ -36,11 +36,12 @@ def reply_yn(message):
     return False
 
 
-def compile_process(file_name, commands, dir_name, cmd_table):
+def compile_process(file_name, file_fullname, commands, dir_name, cmd_table):
     """Process that get and compile LaTeX file"""
     os.chdir(dir_name)
-    print(f'compiling {file_name}.tex')
-    variable = {r'\$FILE': file_name}
+    print(f'compiling {file_fullname}')
+    variable = {r'\$FILE_FULL': file_fullname,
+                r'\$FILE': file_name}
     compile_cmd(commands, variable, cmd_table)
 
 
@@ -50,21 +51,22 @@ def main_ui(process_pool, settings, lang_file):
     while reply not in ('0', '1', '2', '4'):
         current_dir = os.path.abspath('')
         files = find_files(settings['compile_cases'],
-                           settings['default_command'])
+                           settings['default_command'],
+                           settings['compile_format'])
         print('-'*50)
         if files:
             print(lang_file['pwd'])
             print('-'*50)
-            for file_name, commands in files:
-                print(f'{file_name}.tex\t{commands}')
+            for _, file_fullname, commands in files:
+                print(f"{file_fullname}\t({', '.join(commands)})")
         else:
             print(lang_file['empty_dir'])
         print('-'*50)
         print(lang_file['choices'])
         reply = input(lang_file['prompt'])
         if reply in ('0', '2'):
-            new_files = [(x, y, current_dir, settings['compile_commands'])
-                         for x, y in files]
+            new_files = [(name, fullname, cmd, current_dir, settings['compile_commands'])
+                         for name, fullname, cmd in files]
             process_pool.starmap(compile_process, new_files)
         if reply in ('1', '2'):
             remove_files = remove_file_list(settings['remove_format'])

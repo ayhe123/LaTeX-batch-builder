@@ -21,7 +21,7 @@ import os
 import re
 
 
-def find_files(cases: list, default_cmd: list):
+def find_files(cases: list, default_cmd: list, file_types: list):
     """
     Find .tex files and choose command according to file content.
 
@@ -36,17 +36,20 @@ def find_files(cases: list, default_cmd: list):
     default_cmd: A list of commands
     If nothing in cases is matched, then the program will return this.
 
+    default_cmd: A list of file types(without '.')
+    Files with type in it will be found.
+
     Returns
     -------
 
-    A list of (file_name, commands), where file_name is the .tex file
-    without ".tex", and commands is a list of corresponding commands.
+    A list of (file_name, file_fullname, commands), where file_name is the
+    found file without type, and commands is a list of corresponding commands.
     """
     files = os.listdir()
     result = []
     for file_fullname in files:
         file_name, _, file_type = file_fullname.rpartition('.')
-        if file_type == 'tex':
+        if file_type in file_types:
             commands = default_cmd
             with open(file_fullname, encoding='utf-8') as fp:
                 context = fp.read()
@@ -54,7 +57,7 @@ def find_files(cases: list, default_cmd: list):
                     if re.findall(case['match'], context):
                         commands = case['exec']
                         break
-            result.append((file_name, commands))
+            result.append((file_name, file_fullname, commands))
     return result
 
 

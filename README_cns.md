@@ -67,7 +67,7 @@ xelatex --version
 ```json
 "compile_commands": {
         "命令1名称": [
-            "xelatex -interaction=batchmode $FILE"  // 在执行这行命令时，$FILE 会被替换为 .tex 文件的文件名
+            "xelatex -interaction=batchmode $FILE"  // 在执行这行命令时，$FILE 会被替换为不带扩展名的文件名，$FILE 会被替换为带扩展名的文件名
         ],
         "命令2名称": [
             "xelatex -interaction=batchmode $FILE",
@@ -105,9 +105,62 @@ xelatex --version
 
 如果 `"compile_cases"` 中所有的 object 都没有匹配，则执行 `"default_command"` 中的命令
 
-### 自定义删除文件
+### 自定义要编译或要删除的文件
+
+在 `settings.json` 中找到 `"compile_format"`，把你想要编译的文件的扩展名加到 `"compile_format"` 的值里面，程序就可以读取编译这类文件
 
 在 `settings.json` 中找到 `"remove_format"`，把能匹配到你想要删除的文件的正则表达式加到 `"remove_format"` 的值里面，清理临时文件时就会删除这个文件
+
+## 示例
+
+只要把 `settings.json` 设置好，这个程序可以实现很多功能
+
+比如要使用 [Pandoc](https://pandoc.org/) 把当前目录下所有的 markdown、txt、html 文件转换为 pdf、docx、html 文件，可以把 `settings.json` 设置成下面这样：
+
+```json
+"compile_format": [
+    "md",
+    "txt",
+    "html"
+],
+"compile_commands": {
+    "docx": [
+        "pandoc -f markdown -o '$FILE'.docx '$FILE_FULL'"
+    ],
+    "pdf": [
+        "pandoc -f markdown -o '$FILE'.pdf '$FILE_FULL'"
+    ],
+    "html": [
+        "pandoc -f markdown -o '$FILE'.html '$FILE_FULL'"
+    ]
+},
+"compile_cases": [
+    {
+        "match": "#### to .docx ####",
+        "exec": [
+            "docx"
+        ]
+    },
+    {
+        "match": "#### to .pdf ####",
+        "exec": [
+            "pdf"
+        ]
+    },
+    {
+        "match": "#### to .html ####",
+        "exec": [
+            "html"
+        ]
+    }
+],
+"default_command": [
+    "html"
+],
+"remove_format": []
+```
+
+要把某个文件转换为特定的格式，只需要在文件中加一行注释，内容为 `#### to .（要转换的格式的扩展名） ####`
 
 ## 许可证
 

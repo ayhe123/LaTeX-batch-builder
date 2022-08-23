@@ -29,29 +29,32 @@ def export_settings():
 default_settings = {
     "language": "en",
     "num_of_processes": 5,
+    "compile_format": [
+        "tex"
+    ],
     "compile_commands": {
         "xelatex": [
-            "xelatex -interaction=batchmode $FILE"
+            "xelatex -interaction=batchmode '$FILE'"
         ],
         "xelatex*2": [
-            "xelatex -interaction=batchmode $FILE",
-            "xelatex -interaction=batchmode $FILE"
+            "xelatex -interaction=batchmode '$FILE'",
+            "xelatex -interaction=batchmode '$FILE'"
         ],
         "pdflatex": [
-            "pdflatex -interaction=batchmode $FILE"
+            "pdflatex -interaction=batchmode '$FILE'"
         ],
         "pdflatex*2": [
-            "pdflatex -interaction=batchmode $FILE",
-            "pdflatex -interaction=batchmode $FILE"
+            "pdflatex -interaction=batchmode '$FILE'",
+            "pdflatex -interaction=batchmode '$FILE'"
         ],
         "biber": [
-            "biber -q $FILE"
+            "biber -q '$FILE'"
         ],
         "bibtex": [
-            "bibtex -terse $FILE"
+            "bibtex -terse '$FILE'"
         ],
         "makeindex": [
-            "makeindex $FILE"
+            "makeindex '$FILE'"
         ]
     },
     "compile_cases": [
