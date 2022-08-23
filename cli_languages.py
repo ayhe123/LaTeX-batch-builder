@@ -1,6 +1,6 @@
 """
-languages.py
-Language files for LaTeX-batch-builder
+cli_languages.py
+Language files for LaTeX-batch-builder command line interface
 
 Copyright 2022 ayhe123
 

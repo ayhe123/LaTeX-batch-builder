@@ -26,9 +26,7 @@ xelatex --version
 
 在[这里](https://github.com/ayhe123/LaTeX-batch-builder/releases)下载打包好的程序（打包用的是 `pyinstaller`），不需要安装 Python
 
-MacOS 用户需要在终端进入程序所在的目录之后运行程序，而不是双击程序，否则程序会输出错误：`settings.json not found!`
-
-程序所在的目录的 `settngs.json` 文件不要删除
+如果当前目录(Windows 是程序所在的目录, MacOS 双击程序的话是 `~`)下没有 `settngs.json` 文件，程序会使用默认设置，可以在这时导出默认设置的 `settngs.json`
 
 ### 运行源程序
 

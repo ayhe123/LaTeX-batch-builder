@@ -17,13 +17,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import sys
 import os
 from multiprocessing import Pool, freeze_support
 from itertools import zip_longest
 from compile_tools import find_files, remove_file_list, compile_cmd
 from read_settings import read_settings
 from cli_languages import languages, list_of_languages
+from settings import default_settings, export_settings
+
+
+def reply_yn(message):
+    """Display messge, ask for reply until user input 'y' or 'n' """
+    reply = '0'
+    while reply not in ('y', 'n'):
+        reply = input(message)
+    if reply == 'y':
+        return True
+    return False
 
 
 def compile_process(file_name, commands, dir_name, cmd_table):
@@ -67,10 +77,7 @@ def main_ui(process_pool, settings, lang_file):
                                               fillvalue=''):
                     print('\t'.join([s.ljust(15) for s in files_line]))
                 print('-'*50)
-                reply_clean = '0'
-                while reply_clean not in ('y', 'n'):
-                    reply_clean = input(lang_file['cleaning_2'])
-                if reply_clean == 'y':
+                if reply_yn(lang_file['cleaning_2']):
                     for files in remove_files:
                         os.remove(files)
             else:
@@ -88,7 +95,10 @@ if __name__ == '__main__':
     freeze_support()  # for Windows executable
     settings = read_settings()
     if not settings:
-        sys.exit()
+        print('Using default settings')
+        settings = default_settings
+        if reply_yn('Export default settings?[y/n] > '):
+            export_settings()
     lang_type = list_of_languages.index(settings['language'])
     with Pool(settings['num_of_processes']) as pool:
         main_ui(pool, settings, languages[lang_type])

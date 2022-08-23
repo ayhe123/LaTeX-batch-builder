@@ -26,9 +26,7 @@ xelatex --version
 
 Packed executables (packed using `pyinstaller`) can be downloaded [here](https://github.com/ayhe123/LaTeX-batch-builder/releases). You can use it without Python.
 
-If you are using MacOS, you should enter the directory of the program in the terminal and run it instead of double-click the program, otherwise an exception with message `settings.json not found!` will be raised.
-
-Don't remove `settngs.json` in the program's directory.
+If no `settngs.json` file in current directory (the program's directory in Windows, and `~` in MacOS if you double-click the program), the program will use default settings. You can export default settings to `settngs.json` then.
 
 ### Run Source Code
 

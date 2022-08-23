@@ -45,10 +45,10 @@ def check_file(filename, content, check_list):
 
 def read_settings():
     """Read settings.json, check files, get settings"""
-    settings = read_json('settings.json')
+    settings = read_json('LaTeX_batch_builder.json')
     if not settings:
         return False
-    if not check_file('settings.json', settings, ['language',
+    if not check_file('LaTeX_batch_builder.json', settings, ['language',
                                                   'num_of_processes',
                                                   'compile_commands',
                                                   'compile_cases',
