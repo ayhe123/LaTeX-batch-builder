@@ -34,6 +34,15 @@ xelatex --version
 
 克隆这个仓库，在仓库的目录下运行 `LaTeX_batch_builder_cli.py` 即可
 
+### 命令行参数
+
+    使用方法: LaTeX_batch_builder_cli [-h] [-q] [-c] [-r] [-d DIRECTORY]
+    -h, --help            显示帮助信息
+    -q, --quiet           不进入用户界面，使用 -c,-r 参数操作
+    -c, --compile         编译 LaTeX 文件
+    -r, --remove          删除临时文件
+    -d, --directory       指定当前目录
+
 ### 更改语言
 
 默认的语言是英文

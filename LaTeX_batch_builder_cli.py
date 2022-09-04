@@ -18,6 +18,8 @@ limitations under the License.
 """
 
 import os
+import argparse
+import pathlib
 from multiprocessing import Pool, freeze_support
 from itertools import zip_longest
 from compile_tools import find_files, remove_file_list, compile_cmd
@@ -43,6 +45,20 @@ def compile_process(file_name, file_fullname, commands, dir_name, cmd_table):
     variable = {r'\$FILE_FULL': file_fullname,
                 r'\$FILE': file_name}
     compile_cmd(commands, variable, cmd_table)
+
+
+def main_no_ui(process_pool, settings, args):
+    """Proceed without user interface"""
+    if args['compile']:
+        files = find_files(settings['compile_cases'],
+                           settings['default_command'],
+                           settings['compile_format'])
+        new_files = [(name, fullname, cmd, os.path.abspath(''), settings['compile_commands'])
+                     for name, fullname, cmd in files]
+        process_pool.starmap(compile_process, new_files)
+    if args['remove']:
+        for files in remove_file_list(settings['remove_format']):
+            os.remove(files)
 
 
 def main_ui(process_pool, settings, lang_file):
@@ -95,12 +111,32 @@ def main_ui(process_pool, settings, lang_file):
 
 if __name__ == '__main__':
     freeze_support()  # for Windows executable
+    parser = argparse.ArgumentParser(
+        description="A tool which compiles several LaTeX files simultaneously and deletes temporary files.")
+    parser.add_argument(
+        "-q", "--quiet", action='store_true',
+        help="Don't display user interface and use arguments")
+    parser.add_argument(
+        "-c", "--compile", action='store_true', help="Compile LaTeX files")
+    parser.add_argument(
+        "-r", "--remove", action='store_true', help="Remove temporary files")
+    parser.add_argument(
+        "-d", "--directory", type=pathlib.Path, help="Working directory")
+    args = parser.parse_args().__dict__
+
+    if args['directory']:
+        os.chdir(args['directory'])
     settings = read_settings()
     if not settings:
         print('Using default settings')
         settings = default_settings
-        if reply_yn('Export default settings?[y/n] > '):
+        if not args['quiet'] and reply_yn('Export default settings?[y/n] > '):
             export_settings()
-    lang_type = list_of_languages.index(settings['language'])
-    with Pool(settings['num_of_processes']) as pool:
-        main_ui(pool, settings, languages[lang_type])
+
+    if args['quiet']:
+        with Pool(settings['num_of_processes']) as pool:
+            main_no_ui(pool, settings, args)
+    else:
+        lang_type = list_of_languages.index(settings['language'])
+        with Pool(settings['num_of_processes']) as pool:
+            main_ui(pool, settings, languages[lang_type])

@@ -34,6 +34,15 @@ All you need is Python 3 (This program is tested under Python 3.8). No additiona
 
 Clone this repository and you can use it directly by running `LaTeX_batch_builder_cli.py`.
 
+### Command Line Arguments
+
+    usage: LaTeX_batch_builder_cli [-h] [-q] [-c] [-r] [-d DIRECTORY]
+    -h, --help            Show help message and exit
+    -q, --quiet           Don't display user interface and use -c,-r arguments
+    -c, --compile         Compile LaTeX files
+    -r, --remove          Remove temporary files
+    -d, --directory       Working directory
+
 ### Change Language
 
 Default language is English.
